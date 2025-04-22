@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "538437970176",
+    "project_id": "sotuvchisiz-do-kon",
+    "storage_bucket": "sotuvchisiz-do-kon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538437970176:android:83239dfe6bea2ef40a6be5",
+        "android_client_info": {
+          "package_name": "com.example.online_shop_uz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2-J4_CRYMoenStsE7aRM97ikxCFN6fiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
