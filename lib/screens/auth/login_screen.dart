@@ -109,7 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       backgroundColor: Colors.blueAccent,
                     ),
-                    child: Text('Kirish', style: TextStyle(fontSize: 18)),
+                    child: Text(
+                      'Kirish',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
                   ),
               SizedBox(height: 16),
               TextButton(
@@ -157,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (e.code == 'wrong-password') {
         showErrorSnackBar(context, 'Parol noto‘g‘ri kiritilgan.');
       } else {
-        showErrorSnackBar(context, 'Xatolik: Bu eamil ro\'yxatdan o\'tmagan!');
+        showErrorSnackBar(context, 'Xatolik: $e');
       }
     } catch (e) {
       showErrorSnackBar(context, 'Noma’lum xatolik yuz berdi.');

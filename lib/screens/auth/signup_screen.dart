@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_shop_uz/screens/main_screen.dart';
 import '../../../services/auth_service.dart';
 import 'login_screen.dart';
@@ -12,6 +13,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
   final _authService = AuthService();
 
   bool _isLoading = false;
@@ -36,6 +38,25 @@ class _SignupScreenState extends State<SignupScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 40),
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  hintText: 'Ism',
+                  prefixIcon: Icon(Icons.person),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 20,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -86,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     child: Text(
                       "Ro'yxatdan o'tish",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
               SizedBox(height: 16),
@@ -120,6 +141,12 @@ class _SignupScreenState extends State<SignupScreen> {
         _passwordController.text.trim(),
       );
       if (user != null) {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'name': _nameController.text.trim(),
+          'email': user.email,
+          'createdAt': Timestamp.now(),
+        });
+
         showSuccessSnackBar(context, "Muvaffaqiyatli ro'yxatdan o'tildi!");
         Navigator.pushReplacement(
           context,
