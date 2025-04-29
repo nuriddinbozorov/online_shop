@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:online_shop_uz/screens/home_screen.dart';
+import 'package:online_shop_uz/screens/main_screen.dart';
 import '../../../services/auth_service.dart';
 import 'login_screen.dart';
 
@@ -123,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
         showSuccessSnackBar(context, "Muvaffaqiyatli ro'yxatdan o'tildi!");
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => HomeScreen()),
+          MaterialPageRoute(builder: (_) => MainScreen()),
         );
       }
     } on FirebaseAuthException catch (e) {

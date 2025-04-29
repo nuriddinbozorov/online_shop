@@ -10,7 +10,7 @@ class OrderService {
     final order = {
       'userId': user.uid,
       'createdAt': Timestamp.now(),
-      'total': items.fold(0, (sum, item) => sum + ((item?.total ?? 0).toInt())),
+      'total': items.fold(0, (sum, item) => sum + ((item.total ?? 0).toInt())),
       //                                         ↑ double ni int ga convert qilish
       'items':
           items
