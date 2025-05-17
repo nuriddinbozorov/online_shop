@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
   final String appVersion = '1.0.0';
-  final String developerName = 'Shop Name UZ';
-  final String contactEmail = 'support@shopname.uz';
-  final String websiteUrl = 'https://shopname.uz';
-  final String privacyPolicyUrl = 'https://shopname.uz/privacy';
+  final String developerName = "Sotuvchisiz  do'kon";
+  final String contactEmail = 'support@sotuvchisizdokon.uz';
+  final String websiteUrl = 'https://sotuvchisizdokon.uz';
+  final String privacyPolicyUrl = 'https:/sotuvchisizdokon.uz/privacy';
 
   const AboutScreen({super.key});
 
@@ -37,7 +37,7 @@ class AboutScreen extends StatelessWidget {
           children: [
             SizedBox(height: 24),
             Text(
-              'Shop Name UZ',
+              "Sotuvchisiz do'kon",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class AboutScreen extends StatelessWidget {
                     Text(
                       'Bu ilova RFID texnologiyasi yordamida ishlaydigan '
                       'innovatsion online do\'kon loyihasi. '
-                      'Mahsulotlarni tez va qulay tarzda sotib olish imkoniyati.',
+                      'Mahsulotlarni tez va qulay tarzda sotib olish imkoniyatiga ega.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15,
@@ -112,7 +112,7 @@ class AboutScreen extends StatelessWidget {
             ),
             SizedBox(height: 32),
             Text(
-              '© 2023 Shop Name UZ. Barcha huquqlar himoyalangan.',
+              "© 2025 Sotuvchisiz do'kon. Barcha huquqlar himoyalangan.",
               style: TextStyle(fontSize: 12, color: Colors.grey[500]),
             ),
           ],

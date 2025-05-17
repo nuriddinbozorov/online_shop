@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_shop_uz/providers/cart_provider.dart';
-import 'package:online_shop_uz/screens/admin/admin_splash_screen.dart';
 import 'package:online_shop_uz/screens/landing_screen.dart';
 import 'package:online_shop_uz/screens/main_screen.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Unmanned Store',
+      debugShowCheckedModeBanner: false,
+      title: "Sotuvchisiz do'kon",
       theme: ThemeData(primarySwatch: Colors.teal),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

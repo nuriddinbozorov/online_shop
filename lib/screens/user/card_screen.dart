@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CardScreen extends StatefulWidget {
+  const CardScreen({super.key});
+
   @override
   _CardScreenState createState() => _CardScreenState();
 }
@@ -11,6 +15,42 @@ class _CardScreenState extends State<CardScreen> {
   final _cvvController = TextEditingController();
   final _balanceController = TextEditingController();
   bool _isLoading = false;
+  Future<void> _saveCardInfo() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+
+    final cardData = {
+      'cardNumber': _cardNumberController.text.trim(),
+      'expiryDate': _expiryDateController.text.trim(),
+      'cvv': _cvvController.text.trim(),
+      'balance': double.tryParse(_balanceController.text.trim()) ?? 0.0,
+    };
+
+    await FirebaseFirestore.instance.collection('cards').doc(uid).set(cardData);
+  }
+
+  Future<void> _loadCardInfo() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+
+    final doc =
+        await FirebaseFirestore.instance.collection('cards').doc(uid).get();
+    if (doc.exists && doc.data() != null) {
+      final data = doc.data()!;
+      setState(() {
+        _cardNumberController.text = data['cardNumber'] ?? '';
+        _expiryDateController.text = data['expiryDate'] ?? '';
+        _cvvController.text = data['cvv'] ?? '';
+        _balanceController.text = (data['balance'] ?? '').toString();
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCardInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -283,22 +323,18 @@ class _CardScreenState extends State<CardScreen> {
                 onPressed:
                     _isLoading
                         ? null
-                        : () {
+                        : () async {
                           setState(() => _isLoading = true);
-                          Future.delayed(Duration(seconds: 2), () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Karta ma\'lumotlari saqlandi'),
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            setState(() => _isLoading = false);
-                          });
+                          await _saveCardInfo();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Karta ma\'lumotlari saqlandi'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          setState(() => _isLoading = false);
                         },
+
                 child:
                     _isLoading
                         ? SizedBox(
@@ -318,6 +354,34 @@ class _CardScreenState extends State<CardScreen> {
                             color: Colors.white,
                           ),
                         ),
+              ),
+            ),
+            SizedBox(height: 12),
+            Center(
+              child: TextButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 3,
+                ),
+                onPressed: () async {
+                  final uid = FirebaseAuth.instance.currentUser?.uid;
+                  if (uid != null) {
+                    await FirebaseFirestore.instance
+                        .collection('cards')
+                        .doc(uid)
+                        .delete();
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("Karta o‘chirildi")));
+                  }
+                },
+                child: Text(
+                  "Karta ma'lumotlarini o‘chirish",
+                  style: TextStyle(color: Colors.red),
+                ),
               ),
             ),
           ],

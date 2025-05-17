@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:online_shop_uz/screens/payment_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
-import 'checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -177,7 +177,7 @@ class CartScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => CheckoutScreen(),
+                                  builder: (_) => PaymentScreen(),
                                 ),
                               );
                             },
